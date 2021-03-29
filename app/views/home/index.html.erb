@@ -1,2 +1,16 @@
-<h1>Stocking</h1>
-<p>This is my stock market app....</p>
+<h1>My Stock Ticker</h1>
+
+<%= form_tag root_path, :method => 'POST' do %>
+<%= text_field_tag 'ticker', nil, placeholder: "Enter Ticker Symbol", size: 50 %>
+<%= submit_tag 'Lookup' %>
+<% end %>
+<br/>
+<% if @stock %>
+<%= @stock.company_name %><br/>
+$<%= @stock.latest_price %><br/>
+<% elsif @nothing %>
+	<%= @nothing %>
+<% end %>
+<% if @error %>
+	<%= @error %>
+	<% end %>
