@@ -5,8 +5,9 @@
 <table>
   <thead>
     <tr>
+      <th>Company</th>
       <th>Ticker</th>
-      <th>User</th>
+      <th>Current Price</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,9 +15,26 @@
   <tbody>
     <% @stocks.each do |stock| %>
     <% if stock.user_id == current_user.id %>
+     <% if stock.ticker == "" %>
+      <% @ticker.company_name = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      <% @ticker.symbol = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      <% @ticker.latest_price = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+ <% elsif stock.ticker %>
+    <% begin %>
+     <% @ticker = StockQuote::Stock.quote(stock.ticker) %>
+    <% rescue => e %>
+      <% @ticker.company_name = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      <% @ticker.symbol = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      <% @ticker.latest_price = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      <% end %>
+     <% end %>
+    
+     
+
       <tr>
-        <td><%= stock.ticker %></td>
-        <td><%= stock.user_id %></td>
+        <td><%= @ticker.company_name %></td>
+        <td><%= @ticker.symbol %></td>
+        <td>$<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ',') %></td>
         <td><%= link_to 'Show', stock %></td>
         <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
         <td><%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></td>
