@@ -1,13 +1,18 @@
 
 
-<h1>Stocks</h1>
 
-<table>
-  <thead>
+
+
+  <table class="table table-striped table-bordered table-hover">
+  <thead class="thead-dark">
     <tr>
       <th>Company</th>
       <th>Ticker</th>
       <th>Current Price</th>
+      <th>Market Cap</th>
+      <th>Week52 High</th>
+      <th>Week52 Low</th>
+      <th>Avg Total Volume</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,30 +20,32 @@
   <tbody>
     <% @stocks.each do |stock| %>
     <% if stock.user_id == current_user.id %>
-     <% if stock.ticker == "" %>
-      <% @ticker.company_name = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
-      <% @ticker.symbol = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
-      <% @ticker.latest_price = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
- <% elsif stock.ticker %>
-    <% begin %>
+     <% begin %>
      <% @ticker = StockQuote::Stock.quote(stock.ticker) %>
     <% rescue => e %>
       <% @ticker.company_name = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
       <% @ticker.symbol = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
       <% @ticker.latest_price = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
-      <% end %>
+      <% @ticker.market_cap = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      <% @ticker.week52_high = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      <% @ticker.week52_low = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      <% @ticker.avg_total_volume = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      
      <% end %>
     
      
 
       <tr>
-        <td><%= @ticker.company_name %></td>
-        <td><%= @ticker.symbol %></td>
+        <td><%= link_to @ticker.company_name %></td>
+        <td><%= link_to @ticker.symbol %></td>
         <td>$<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ',') %></td>
-        <td><%= link_to 'Show', stock %></td>
-        <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
-        <td><%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+         <td>$<%= number_with_precision(@ticker.market_cap, :precision => 2, :delimiter => ',') %></td>
+         <td>$<%= number_with_precision(@ticker.week52_high, :precision => 2, :delimiter => ',') %></td>
+         <td>$<%= number_with_precision(@ticker.week52_low, :precision => 2, :delimiter => ',') %></td>
+          <td><%= number_with_precision(@ticker.avg_total_volume, :precision => 2, :delimiter => ',') %></td>
+        <td><center><%= link_to 'Edit', edit_stock_path(stock), class: "btn btn-primary" %></td>
+        <td><center><%= link_to 'Delete', stock, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+        </tr>
     <% end %>
     <% end %>
   </tbody>
