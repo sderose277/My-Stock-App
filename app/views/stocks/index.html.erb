@@ -23,7 +23,7 @@
      <% begin %>
      <% @ticker = StockQuote::Stock.quote(stock.ticker) %>
     <% rescue => e %>
-      <% @ticker.company_name = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
+      <%  @ticker.company_name = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
       <% @ticker.symbol = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
       <% @ticker.latest_price = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
       <% @ticker.market_cap = "Hey! That Stock Symbol Doesn't Exist. Please Try Again" %>
@@ -36,8 +36,8 @@
      
 
       <tr>
-        <td><%= link_to @ticker.company_name %></td>
-        <td><%= link_to @ticker.symbol %></td>
+        <td><%= link_to @ticker.company_name, stock %></td>
+        <td><%= link_to @ticker.symbol, stock %></td>
         <td>$<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ',') %></td>
          <td>$<%= number_with_precision(@ticker.market_cap, :precision => 2, :delimiter => ',') %></td>
          <td>$<%= number_with_precision(@ticker.week52_high, :precision => 2, :delimiter => ',') %></td>
@@ -53,4 +53,5 @@
 
 <br>
 
-<%= link_to 'New Stock', new_stock_path %>
+<%= link_to 'New Stock', new_stock_path, class: "btn btn-outline-secondary" %>
+
