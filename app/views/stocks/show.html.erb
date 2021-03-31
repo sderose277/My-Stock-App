@@ -14,12 +14,13 @@
           
           
           
-      <% else %><center>
-        <% @logo = StockQuote::Stock.logo(@stock.ticker)%>
+      <% else %><center><% @logo = StockQuote::Stock.logo(@stock.ticker)%>
         <img src="<%= @logo.url %>"><br/><br/>
 
           <h2><center><%= @ticker.company_name %></h2><br/>
-          <center>Ticker Symbol:<center> <%= @ticker.symbol %><br/>
+
+          Ticker Symbol: <%= @ticker.symbol %><br/>
+
           Current Price: $<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ',') %><br/>
 
           Previous Close: $<%= number_with_precision(@ticker.previous_close, :precision => 2, :delimiter => ',') %><br/>
