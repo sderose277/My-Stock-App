@@ -3,7 +3,7 @@
     <h1 class="display-1">My Stock Ticker</h1>
     <p class="lead"></p>
   <%= form_tag root_path, :method => 'POST' do %>
-<%= text_field_tag 'ticker', nil, placeholder: "Enter Ticker Symbol", size: 50 %>
+<%= text_field_tag 'ticker', nil, placeholder: "Enter Ticker Symbol", size: 20 %>
 <%= submit_tag 'Lookup' %>
 <% end %>
 <br/>
