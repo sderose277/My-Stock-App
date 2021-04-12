@@ -1,0 +1,10 @@
+body {
+	padding-top: 0rem;
+	background-image: url("/assets/b7.jpg");
+	background-size: 1400px 1000px, cover;
+}
+
+.start-templete {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}

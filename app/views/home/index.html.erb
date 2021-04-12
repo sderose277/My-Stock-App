@@ -1,8 +1,8 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-1">My Stock Ticker</h1>
+    <h2 class="display-1">My Stock Ticker</h2>
     <p class="lead"></p>
-  <%= form_tag root_path, :method => 'POST' do %>
+    <%= form_tag root_path, :method => 'POST' do %>
 <%= text_field_tag 'ticker', nil, placeholder: "Enter Ticker Symbol", size: 20 %>
 <%= submit_tag 'Lookup' %>
 <% end %>
